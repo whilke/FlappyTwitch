@@ -46,7 +46,7 @@ function game::createScene( %this )
 
 	%scene = new Scene(gameScene);
 	
-	%scene.setGravity( 0, -39.89);
+	%scene.setGravity( 0, -59.89);
 
 	%scene.setDebugOn( "fps" );
 	//%scene.setDebugOn( "metrics" );

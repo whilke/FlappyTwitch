@@ -10,7 +10,7 @@ function Player::init()
 	};
 	
 	%fixture = %player.createCircleCollisionShape(2, 0, -0.5);
-	%player.setCollisionShapeDensity(%fixture, 40);
+	%player.setCollisionShapeDensity(%fixture, 60);
 	%player.setCollisionShapeFriction(%fixture, 100);
 	%player.setPosition(-30, 0);
 		
@@ -33,6 +33,19 @@ function Player::Stop(%this)
 function Player::Flap(%this)
 {
 	%this.setLinearVelocity(0, 40);
+	
+	if ( isEventPending(%this.schId))
+	{
+		cancel(%this.schId);
+	}
+	
+	%this.schId = %this.schedule(100, Fall);
+	
+}
+
+function Player::Fall(%this)
+{
+	%this.setLinearVelocity(0, -10);
 }
 
 function Player::onCollision( %this, %sceneObject, %collisionDetails )

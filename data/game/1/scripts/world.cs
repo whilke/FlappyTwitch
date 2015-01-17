@@ -118,8 +118,25 @@ function World::createPipe(%this, %x)
 			
 	%totalPipeSize =  ( %windowSize - %space);
 	
+	%lastY = %this.lastPipeHeight;	
 	%randomSize = getRandom(3, 25);
 	%randomGame = getRandom(0, 11);
+	
+	if (%lastY == 0)
+		%lastY = %randomSize;
+	
+	%diff = mAbs(%lastY - %randomSize);
+	%direction = 1;
+	if (%lastY > %randomSize) %direction = -1;
+	if (%diff > 15)
+	{
+		%randomSize -= %diff * %direction;
+	}
+	
+	echo("diff:" SPC %diff);
+	echo("sie:" SPC %randomSize);
+	%this.lastPipeHeight = %randomSize;
+	
 	
 	%upperPipeSize = %totalPipeSize - %randomSize;
 	%lowerPipeSize = %randomSize;
@@ -135,6 +152,8 @@ function World::createPipe(%this, %x)
 		Position = %x SPC  %halfFullWindowSize - (%upperPipeSize * 0.5);
 		Parent = %this;
 		CollisionCallback = true;
+		SceneLayer = 30;
+		
 	};
 	%upperPipe.setFlipY(true);
 	
@@ -148,6 +167,7 @@ function World::createPipe(%this, %x)
 		Position = %x SPC -%halfFullWindowSize + (%lowerPipeSize * 0.5) + %groundSize;
 		Parent = %this;
 		CollisionCallback = true;
+		SceneLayer = 30;
 	};
 	
 	%fixture = %upperPipe.createPolygonBoxCollisionShape( %upperPipe.getSize() );

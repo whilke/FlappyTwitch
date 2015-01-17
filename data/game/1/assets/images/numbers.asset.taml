@@ -1,0 +1,9 @@
+<ImageAsset
+	AssetName = "numbers"
+	ImageFile = "numbers.png"
+	
+	CellCountX = 4;
+	CellCountY = 3;
+	CellWidth = 50;
+	CellHeight = 45;
+/>

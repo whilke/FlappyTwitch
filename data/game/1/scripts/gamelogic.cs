@@ -1,5 +1,6 @@
 exec("./player.cs");
 exec("./world.cs");
+exec("./ui.cs");
 
 function setupGame()
 {
@@ -11,8 +12,8 @@ function setupGame()
 
 function endGame()
 {
-	stopGame();
-	$Globals::State = 3;
+	//stopGame();
+	//$Globals::State = 3;
 }
 
 function resetGame()
@@ -20,6 +21,7 @@ function resetGame()
 	gameScene.clear();
 	$Globals::Player = Player::init();
 	$Globals::World = World::init();
+	UI::init();
 
 	$Globals::World.setup();
 	$Globals::currentScore= 0;
@@ -29,12 +31,14 @@ function startGame()
 {
 	$Globals::Player.Start();
 	$Globals::World.Start();
+	UI::Start();
 }
 
 function stopGame()
 {
-	$Globals::Player.Stop();
-	$Globals::World.Stop();
+	//$Globals::Player.Stop();
+	//$Globals::World.Stop();
+	//UI::Stop();
 }
 
 function increaseScore()
@@ -45,7 +49,8 @@ function increaseScore()
 		$Globals::highScore = $Globals::currentScore;
 	}
 	
-	echo("currentScore:" SPC $Globals::currentScore);
+	UI::setScore($Globals::currentScore);
+	
 }
 
 function gameWindow::onTouchDown(%this, %touchID, %worldPos, %mouseClick)
@@ -80,11 +85,6 @@ function gameWindow::onTouchDown(%this, %touchID, %worldPos, %mouseClick)
 
 function gameWindow::OnTouchUp(%this, %touchID, %worldPos, %mouseClicks)
 {
-
-	if ($Globals::State == 2)
-	{
-		$Globals::Player.setLinearVelocity(0, -5);
-	}
 }
 
 
