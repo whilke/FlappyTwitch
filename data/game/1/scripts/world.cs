@@ -12,6 +12,7 @@ function World::setup(%this)
 {
 	%ground = new Scroller()
 	{
+		class = "Ground";
 		Image = "game:ground";
 		size = "100 10";
 		BodyType = "static";
@@ -55,13 +56,16 @@ function World::setup(%this)
 	%fixture = %gc.createPolygonBoxCollisionShape(%gc.getSize());
 	%gc.setCollisionShapeIsSensor(%fixture, true);
 	%gc.addToScene(gameScene);
+	
+	
+	
 
 }
 
 function GC::onEnter(%this, %who)
 {
 	%class = %who.getClassNamespace();
-	if (%class $= "Pipe")
+	if (%class $= "Pipe" || $class $= "ScoreSensor")
 	{
 		%who.Parent.deletePipe(%who);
 	}
@@ -73,18 +77,27 @@ function World::Start(%this)
 	%this.background.setScrollX(5.0);	
 	
 	%this.Tick();
+	gameScene.setScenePause(false);
+
 }
 
 function World::Stop(%this)
 {
 	%this.ground.setScrollX(0);	
 	%this.background.setScrollX(0);	
+	if (isEventPending(%this.tickId))
+	{
+		cancel(%this.tickId);
+	}	
+	%this.tickId = 0;
+	
+	gameScene.setScenePause(true);
 }
 
 function World::Tick(%this)
 {
 	%this.createPipe(60);	
-	%this.tickId = %this.schedule(1000, Tick);
+	%this.tickId = %this.schedule(1100, Tick);
 }
 
 function World::deletePipe(%this, %pipe)
@@ -105,7 +118,7 @@ function World::createPipe(%this, %x)
 			
 	%totalPipeSize =  ( %windowSize - %space);
 	
-	%randomSize = getRandom(3, 15);
+	%randomSize = getRandom(3, 25);
 	%randomGame = getRandom(0, 11);
 	
 	%upperPipeSize = %totalPipeSize - %randomSize;
@@ -121,6 +134,7 @@ function World::createPipe(%this, %x)
 		Size = 8 SPC  %upperPipeSize;
 		Position = %x SPC  %halfFullWindowSize - (%upperPipeSize * 0.5);
 		Parent = %this;
+		CollisionCallback = true;
 	};
 	%upperPipe.setFlipY(true);
 	
@@ -133,6 +147,7 @@ function World::createPipe(%this, %x)
 		Size = 8 SPC %lowerPipeSize;
 		Position = %x SPC -%halfFullWindowSize + (%lowerPipeSize * 0.5) + %groundSize;
 		Parent = %this;
+		CollisionCallback = true;
 	};
 	
 	%fixture = %upperPipe.createPolygonBoxCollisionShape( %upperPipe.getSize() );
@@ -142,9 +157,42 @@ function World::createPipe(%this, %x)
 	
 	%upperPipe.setLinearVelocity(-20, 0);
 	%lowerPipe.setLinearVelocity(-20, 0);
-	
-	
+		
 	%upperPipe.addToScene(gameScene);
 	%lowerPipe.addToScene(gameScene);
 	
+	
+	%scoreSensor = new SceneObject()
+	{
+		class = "ScoreSensor";
+		size = 8 SPC %space ;
+		position = %x SPC %lowerPipe.getPosition().y + (%lowerPipeSize * 0.5) + (%space * 0.5);
+		GravityScale = 0;
+		CollisionCallback = true;
+	};
+	%scoreSensor.setLinearVelocity(-20, 0);
+	
+	%fixture = %scoreSensor.createPolygonBoxCollisionShape(%scoreSensor.getSize());
+	%scoreSensor.setCollisionShapeIsSensor(%fixture, true);
+	%scoreSensor.addToScene(gameScene);
+	
 }
+
+function ScoreSensor::onEndCollision( %this, %sceneObject, %collisionDetails )
+{
+	%class = %sceneObject.getClassNamespace();
+	if (%class $= "Player")
+	{
+		increaseScore();
+	}
+}
+
+function Pipe::onCollision( %this, %sceneObject, %collisionDetails )
+{
+	%class = %sceneObject.getClassNamespace();
+	if (%class $= "Player")
+	{
+		endGame();
+	}
+}
+
