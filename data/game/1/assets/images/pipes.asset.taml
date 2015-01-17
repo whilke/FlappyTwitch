@@ -2,8 +2,8 @@
 	AssetName = "Pipe"
 	ImageFile = "pipes.png"
 	
-	CellCountX = 4;
-	CellCountY = 1;
-	CellWidth = 55;
-	CellHeight = 320;
+	CellCountX = 1;
+	CellCountY = 12;
+	CellWidth = 60;
+	CellHeight = 84;
 />

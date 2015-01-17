@@ -41,7 +41,30 @@ function World::setup(%this)
 	};	
 	%background.addToScene(gameScene);
 	%this.background = %background;
+	
+	
+	%gc = new Trigger()
+	{
+		class = "GC";
+		size = "5 46";
+		position = "-70 0";
+		GravityScale = 0;
+		EnterCallback = true;
+	};
+	
+	%fixture = %gc.createPolygonBoxCollisionShape(%gc.getSize());
+	%gc.setCollisionShapeIsSensor(%fixture, true);
+	%gc.addToScene(gameScene);
 
+}
+
+function GC::onEnter(%this, %who)
+{
+	%class = %who.getClassNamespace();
+	if (%class $= "Pipe")
+	{
+		%who.Parent.deletePipe(%who);
+	}
 }
 
 function World::Start(%this)
@@ -64,6 +87,10 @@ function World::Tick(%this)
 	%this.tickId = %this.schedule(1000, Tick);
 }
 
+function World::deletePipe(%this, %pipe)
+{
+	%pipe.safeDelete();
+}
 
 function World::createPipe(%this, %x)
 {
@@ -75,37 +102,43 @@ function World::createPipe(%this, %x)
 	%halfFullWindowSize = %fullWindowSize * 0.5;
 	%halfWindowSize = %windowSize * 0.5;
 	%space = 10;
-		
-	
+			
 	%totalPipeSize =  ( %windowSize - %space);
 	
-	%upperPipeSize = %totalPipeSize * 0.5;
-	%lowerPipeSize = %totalPipeSize * 0.5;
+	%randomSize = getRandom(3, 15);
+	%randomGame = getRandom(0, 11);
+	
+	%upperPipeSize = %totalPipeSize - %randomSize;
+	%lowerPipeSize = %randomSize;
 	
 	
 	%upperPipe = new Sprite()
 	{
+		class = "Pipe";
 		Image = "game:Pipe";
-		Frame = 0;
+		Frame = %randomGame;
 		GravityScale = 0;		
 		Size = 8 SPC  %upperPipeSize;
 		Position = %x SPC  %halfFullWindowSize - (%upperPipeSize * 0.5);
+		Parent = %this;
 	};
 	%upperPipe.setFlipY(true);
 	
 	%lowerPipe = new Sprite()
 	{
+		class = "Pipe";
 		Image = "game:Pipe";
-		Frame = 0;
+		Frame = %randomGame;
 		GravityScale = 0;		
 		Size = 8 SPC %lowerPipeSize;
 		Position = %x SPC -%halfFullWindowSize + (%lowerPipeSize * 0.5) + %groundSize;
+		Parent = %this;
 	};
 	
 	%fixture = %upperPipe.createPolygonBoxCollisionShape( %upperPipe.getSize() );
-	%upperPipe.setCollisionShapeDensity(%fixture, 800);
+	%upperPipe.setCollisionShapeDensity(%fixture, 1200);
 	%fixture = %lowerPipe.createPolygonBoxCollisionShape( %lowerPipe.getSize() );
-	%lowerPipe.setCollisionShapeDensity(%fixture, 800);
+	%lowerPipe.setCollisionShapeDensity(%fixture, 1200);
 	
 	%upperPipe.setLinearVelocity(-20, 0);
 	%lowerPipe.setLinearVelocity(-20, 0);
