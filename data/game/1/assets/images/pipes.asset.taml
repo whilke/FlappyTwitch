@@ -1,0 +1,9 @@
+<ImageAsset
+	AssetName = "Pipe"
+	ImageFile = "pipes.png"
+	
+	CellCountX = 4;
+	CellCountY = 1;
+	CellWidth = 55;
+	CellHeight = 320;
+/>

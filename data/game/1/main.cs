@@ -49,10 +49,10 @@ function game::createScene( %this )
 	%scene.setGravity( 0, -39.89);
 
 	%scene.setDebugOn( "fps" );
-	//%scene.setDebugOn( "metrics" );
+	%scene.setDebugOn( "metrics" );
 	%scene.setDebugOn( "collision" );
 	//%scene.setDebugOn( "wireframe");
-	%scene.setDebugOn( "oobb");
+	//%scene.setDebugOn( "oobb");
 	
 	return %scene;
 }
