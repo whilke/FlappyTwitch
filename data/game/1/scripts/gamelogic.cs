@@ -35,13 +35,28 @@ function gameWindow::onTouchDown(%this, %touchID, %worldPos, %mouseClick)
 		$Globals::State = 1;
 		return;
 	}
-	
 	if ($Globals::State == 1)
 	{
 		//move-player state
 		$Globals::State = 2;
 		startGame();
 	}	
+	
+	if ($Globals::State == 2)
+	{
+		//play game state
+		$Globals::Player.Flap();	
+		return;
+	}
+}
+
+function gameWindow::OnTouchUp(%this, %touchID, %worldPos, %mouseClicks)
+{
+
+	if ($Globals::State == 2)
+	{
+		$Globals::Player.setLinearVelocity(0, -5);
+	}
 }
 
 

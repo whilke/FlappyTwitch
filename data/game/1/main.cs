@@ -50,8 +50,9 @@ function game::createScene( %this )
 
 	%scene.setDebugOn( "fps" );
 	//%scene.setDebugOn( "metrics" );
-	//%scene.setDebugOn( "collisions");
+	%scene.setDebugOn( "collision" );
 	//%scene.setDebugOn( "wireframe");
+	%scene.setDebugOn( "oobb");
 	
 	return %scene;
 }

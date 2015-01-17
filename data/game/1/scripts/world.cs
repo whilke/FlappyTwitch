@@ -20,6 +20,11 @@ function World::setup(%this)
 		repeatX = 5;
 		repeatY = 1;
 	};
+	
+	%ground.createEdgeCollisionShape(-100, 5, 100, 5);
+	%ground.createEdgeCollisionShape(-100, 51, 100, 51);
+	
+	
 	%ground.addToScene(gameScene);
 	%this.ground = %ground;
 	
