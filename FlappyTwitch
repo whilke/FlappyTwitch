@@ -1,0 +1,17 @@
+<NotepadPlus>
+    <Project name="FlappyTwitch">
+        <Folder name="data">
+            <Folder name="assets">
+                <Folder name="images" />
+                <Folder name="sounds" />
+            </Folder>
+            <Folder name="fonts" />
+            <Folder name="gui">
+                <Folder name="images" />
+            </Folder>
+            <Folder name="scripts" />
+        </Folder>
+        <File name="console.log" />
+        <File name="main.cs" />
+    </Project>
+</NotepadPlus>
