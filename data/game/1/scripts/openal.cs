@@ -16,9 +16,9 @@ function initializeOpenAL()
 		
 		for(%c = 1; %c <= 3; %c++)
 		{
-			alxSetChannelVolume(%c, $pref::Audio::channelVoluem[%c]);
+			alxSetChannelVolume(%c, $pref::Audio::channelVolume[%c]);
 		}		
-	}
+	} 
 }
 
 function shutdownOpenAL()

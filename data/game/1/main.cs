@@ -5,6 +5,7 @@ function game::create( %this )
 	exec("./scripts/canvas.cs");
 	exec("./scripts/openal.cs");
 	exec("./scripts/guiProfiles.cs");
+	exec("./scripts/gamelogic.cs");
 	
 	//init the canvas
 	initializeCanvas("enBask Studios");
@@ -32,6 +33,8 @@ function game::create( %this )
 	
 	gameWindow.addInputListener( %this );
 
+	setupGame();
+	
 }
 
 function game::destroy( %this )

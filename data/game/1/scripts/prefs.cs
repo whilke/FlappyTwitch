@@ -9,7 +9,7 @@ $pref::Audio::masterVolume = 1.0;
 $pref::Audio::channelVolume1 = 1.0;
 $pref::Audio::channelVolume2 = 1.0;
 $pref::Audio::channelVolume3 = 1.0;
-$pref::Audio::sxfVolume = 1.0;
+$pref::Audio::sfxVolume = 1.0;
 $pref::Audio::musicVolume = 1.0;
 
 $pref::T2D::imageAssetGlobalFilterMode = Bilinear;

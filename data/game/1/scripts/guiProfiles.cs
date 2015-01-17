@@ -3,7 +3,7 @@ $platformFontSize = 12;
 new GuiCursor(DefaultCursor)
 {
 	hotSpot = "4 4";
-	rednerOffset = "0 0";
+	renderOffset = "0 0";
 	bitmapName = "^game/gui/images/defaultCursor";
 };
 
