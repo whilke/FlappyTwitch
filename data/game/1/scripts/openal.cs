@@ -5,7 +5,7 @@ function initializeOpenAL()
 {
 	shutdownOpenAL();
 	
-	if (!OpenALInitDrive())
+	if (!OpenALInitDriver())
 	{
 		echo("audio init failed");
 		$Audio::initfailed = true;
