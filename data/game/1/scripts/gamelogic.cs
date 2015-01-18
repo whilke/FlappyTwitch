@@ -5,15 +5,20 @@ exec("./ui.cs");
 function setupGame()
 {
 	$Globals::currentScore = 0;
-	$Globals::highScore= 0;
-	
+	$Globals::highScore = 0;
+
 	resetGame();
+	UI::showPlayButton();
+
 }
 
 function endGame()
 {
-	//stopGame();
-	//$Globals::State = 3;
+	stopGame();
+	$Globals::State = 3;
+	UI::setHighScore($Globals::highScore);	
+	UI::showGameOver();	
+	UI::showPlayButton();
 }
 
 function resetGame()
@@ -22,6 +27,7 @@ function resetGame()
 	$Globals::Player = Player::init();
 	$Globals::World = World::init();
 	UI::init();
+	UI::hideGameOver();
 
 	$Globals::World.setup();
 	$Globals::currentScore= 0;
@@ -29,6 +35,7 @@ function resetGame()
 
 function startGame()
 {
+	hideReady();
 	$Globals::Player.Start();
 	$Globals::World.Start();
 	UI::Start();
@@ -36,9 +43,9 @@ function startGame()
 
 function stopGame()
 {
-	//$Globals::Player.Stop();
-	//$Globals::World.Stop();
-	//UI::Stop();
+	$Globals::Player.Stop();
+	$Globals::World.Stop();
+	UI::Stop();
 }
 
 function increaseScore()
@@ -48,20 +55,12 @@ function increaseScore()
 	{
 		$Globals::highScore = $Globals::currentScore;
 	}
-	
 	UI::setScore($Globals::currentScore);
 	
 }
 
 function gameWindow::onTouchDown(%this, %touchID, %worldPos, %mouseClick)
 {
-	if ($Globals::State == 0)
-	{
-		//start-game state
-		$Globals::State = 1;
-		resetGame();
-		return;
-	}
 	if ($Globals::State == 1)
 	{
 		//move-player state

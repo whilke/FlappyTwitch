@@ -32,6 +32,7 @@ function game::create( %this )
 	game.add(CannotRenderProxy);
 	
 	gameWindow.addInputListener( %this );
+	gameWindow.setUseObjectInputEvents(true);
 
 	setupGame();
 	

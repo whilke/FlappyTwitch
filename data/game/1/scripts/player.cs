@@ -4,7 +4,7 @@ function Player::init()
 	{
 		class = "Player";
 		Animation = "game:PlayerAnim";
-		size = "10 5";		
+		size = "8 4";		
 		GravityScale = 0;
 		CollisionCallback = true;
 	};
