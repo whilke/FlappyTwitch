@@ -12,7 +12,7 @@ setScriptExecEcho( false );
 trace( false );
 
 // Sets whether to ignore compiled TorqueScript files (DSOs) or not.
-$Scripts::ignoreDSOs = true;
+$Scripts::ignoreDSOs = false;
 
 // The name of the company. Used to form the path to save preferences. Defaults to GarageGames
 // if not specified.
