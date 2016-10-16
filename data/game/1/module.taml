@@ -1,0 +1,15 @@
+<ModuleDefinition
+	
+	ModuleId="game"
+	VersionId="1"
+	ScriptFile="main.cs"
+	CreateFunction="create"
+	DestroyFunction="destroy">
+	
+	<DeclaredAssets
+		path="assets"
+		Extension="asset.taml"
+		Recurse="true"
+		/>
+		
+	</ModuleDefinition>

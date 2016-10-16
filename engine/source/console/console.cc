@@ -477,6 +477,7 @@ static void log(const char *string)
       // Now write what we came here to write.
       consoleLogFile.write(dStrlen(string), string);
       consoleLogFile.write(2, "\r\n");
+	  consoleLogFile.Flush();
    }
 
    if ((consoleLogMode & 0x3) == 1) 

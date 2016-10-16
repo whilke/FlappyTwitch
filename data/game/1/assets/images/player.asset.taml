@@ -1,0 +1,9 @@
+<ImageAsset
+	AssetName = "Player"
+	ImageFile = "player.png"
+	
+	CellCountX = 4;
+	CellCountY = 2;
+	CellWidth = 275;
+	CellHeight = 150;
+/>
